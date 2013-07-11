@@ -35,7 +35,7 @@ public class TestTopology {
 				"wordSplitter");
 		builder.setBolt("printWordCount", new PrinterBolt(), 2)
 				.shuffleGrouping("wordCount");
-		builder.setBolt("printWordCountToFile", new FilePrinterBolt(new File("wordCounts.out")), 2)
+		builder.setBolt("printWordCountToFile", new FilePrinterBolt(new File("target/wordCounts.out")), 2)
 		.shuffleGrouping("wordCount");
 
 		Config conf = new Config();
