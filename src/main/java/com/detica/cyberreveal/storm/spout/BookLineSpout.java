@@ -1,45 +1,36 @@
-package com.detica.cyberreveal.storm.test.spout;
+package com.detica.cyberreveal.storm.spout;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.detica.cyberreveal.storm.test.bolt.PrinterBolt;
-import com.detica.cyberreveal.storm.test.bolt.WordCountBolt;
-import com.detica.cyberreveal.storm.test.bolt.WordSplitBolt;
-
-import backtype.storm.Config;
-import backtype.storm.LocalCluster;
-import backtype.storm.StormSubmitter;
-import backtype.storm.generated.AlreadyAliveException;
-import backtype.storm.generated.InvalidTopologyException;
 import backtype.storm.spout.SpoutOutputCollector;
 import backtype.storm.task.TopologyContext;
-import backtype.storm.testing.TestWordSpout;
 import backtype.storm.topology.OutputFieldsDeclarer;
-import backtype.storm.topology.TopologyBuilder;
 import backtype.storm.topology.base.BaseRichSpout;
 import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Values;
-import backtype.storm.utils.Utils;
 
+/**
+ * A storm spout which reads a file and outputs each line to a spearate tuple.
+ */
 public class BookLineSpout extends BaseRichSpout {
-	SpoutOutputCollector collector;
+
+	private static final long serialVersionUID = -7281111950770566776L;
+	private SpoutOutputCollector collector;
 	private List<String> lines;
-	private int index;
 
 	@Override
-	public void open(Map conf, TopologyContext context,
-			SpoutOutputCollector collector) {
+	public void open(@SuppressWarnings("rawtypes") final Map conf,
+			final TopologyContext context,
+			final SpoutOutputCollector spoutCollector) {
 		this.lines = new ArrayList<String>();
-		this.index = 0;
-		this.collector = collector;
+		this.collector = spoutCollector;
+		// Read input file, one line at a time, and add each line to a list
 		File inputFile = new File((String) conf.get("inputFile"));
 		try {
 			FileReader inStream = new FileReader(inputFile);
@@ -71,15 +62,15 @@ public class BookLineSpout extends BaseRichSpout {
 	}
 
 	@Override
-	public void ack(Object id) {
+	public void ack(final Object id) {
 	}
 
 	@Override
-	public void fail(Object id) {
+	public void fail(final Object id) {
 	}
 
 	@Override
-	public void declareOutputFields(OutputFieldsDeclarer declarer) {
+	public void declareOutputFields(final OutputFieldsDeclarer declarer) {
 		declarer.declare(new Fields("line"));
 	}
 

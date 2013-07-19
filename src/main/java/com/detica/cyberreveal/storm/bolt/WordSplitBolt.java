@@ -1,4 +1,4 @@
-package com.detica.cyberreveal.storm.test.bolt;
+package com.detica.cyberreveal.storm.bolt;
 
 import backtype.storm.topology.BasicOutputCollector;
 import backtype.storm.topology.OutputFieldsDeclarer;
@@ -7,12 +7,19 @@ import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Tuple;
 import backtype.storm.tuple.Values;
 
+/**
+ * A storm bolt which splits a line into words.
+ */
 public class WordSplitBolt extends BaseBasicBolt {
 
+	private static final long serialVersionUID = 1990152678196466476L;
+
 	@Override
-	public void execute(Tuple tuple, BasicOutputCollector collector) {
+	public void execute(final Tuple tuple, final BasicOutputCollector collector) {
 		String line = tuple.getStringByField("line");
-		String[] words = line.split("\\s|[\\.,\\?!:;'\"£$%^&\\*\\(\\)\\-\\=\\_\\+\\[\\]\\{\\}@\\#\\~\\>\\<]");
+		// split line by whitespace and punctuation characters
+		String[] words = line
+				.split("\\s|[\\.,\\?!:;'\"£$%^&\\*\\(\\)\\-\\=\\_\\+\\[\\]\\{\\}@\\#\\~\\>\\<]");
 		for (int i = 0; i < words.length; i++) {
 			String word = words[i].toLowerCase().trim();
 			if (word.length() > 0) {
@@ -22,7 +29,7 @@ public class WordSplitBolt extends BaseBasicBolt {
 	}
 
 	@Override
-	public void declareOutputFields(OutputFieldsDeclarer declarer) {
+	public void declareOutputFields(final OutputFieldsDeclarer declarer) {
 		declarer.declare(new Fields("word"));
 	}
 
