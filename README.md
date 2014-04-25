@@ -9,9 +9,10 @@ The topology reads the contents of a local file, splitting the text into single 
 
 1. Perform a code review of the application describing the changes you would suggest to the developer. 
 2. Add a Bolt (or series of Bolts) to the Topology so that in addition to the current functionality, for each letter in the file, a line is written to a new file stating the letter and the number of times that letter has previously been seen.
-3. Describe some improvements/new features which could be made to extend this application.
-4. Implement some of the improvements you listed in task 3.
+3. Describe some new features which could be made to extend this application.
+4. Implement some of the new features you listed in task 3.
 
 ## Notes ##
 
 - We are not looking for a complete rewrite of the application for the code review. Just some helpful tips on best practices.
+- Please do not fork this repository or submit answers as a Pull Request.  Test Responses should be submitted via email to your recruiter.
