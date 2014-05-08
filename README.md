@@ -4,7 +4,7 @@
 
 The aim of this exercise is to learn about the Storm framework and then demonstrate this knowledge.
 
-Information on Storm can be found [here](http://storm-project.net/ "here").
+Information on Storm can be found [here](http://storm-project.net/ "here").  A good place to start would be the [tutorial](http://storm.incubator.apache.org/documentation/Tutorial.html "tutorial").
 
 This project contains a simple Storm topology that reads the contents of a local file, splits the text into single lines and then into individual words.  For each word in the file a line is written to an output file stating the word and the number of times that word has been previously seen.
 
